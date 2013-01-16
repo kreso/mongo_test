@@ -2,6 +2,8 @@ GEM
   remote: http://rubygems.org/
   specs:
     bson (1.8.1)
+    bson_ext (1.8.1)
+      bson (~> 1.8.1)
     mongo (1.8.1)
       bson (~> 1.8.1)
 
@@ -9,4 +11,5 @@ PLATFORMS
   ruby
 
 DEPENDENCIES
+  bson_ext
   mongo

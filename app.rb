@@ -1,15 +1,19 @@
-require 'mongo'
+require 'logger'
+require 'sinatra/base'
+require './mongo_repo'
 
-include Mongo
 
-@client = MongoClient.new('localhost', 27017)
-@db = @client['sample-db']
-@coll = @db['test']
+class App < Sinatra::Base
 
-@coll.remove
+  configure do
+    LOGGER = Logger.new("mongo_test.log")
+    enable :logging, :dump_errors
+    set :raise_errors, true
+  end
 
-3.times do |i|
-  @coll.insert({'a' => i+1})
+  get '/' do
+    Repo.get_all_tests().inspect()
+  end
+
+  run! if __FILE__ == $0
 end
-
-@coll.find.each { |doc| puts doc.inspect }
